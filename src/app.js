@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cors());
 // Enable pre-flight
 app.options("*", cors());
-app.use(compression());
+// app.use(compression());
 
 
 const usersRoutes = require('./routes/users.route');
@@ -53,7 +53,7 @@ app.all('*', (req, res, next) => {
 
 // app.use(errorMiddleware);
 
-app.listen(3000, () => 
+app.listen(process.env.PORT, () => 
     console.log(`Server running on port 3000`));
 
 module.exports = app;
