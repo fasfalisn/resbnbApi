@@ -9,6 +9,7 @@ router.get('/', awaitHandlerFactory(usersController.getAllUsers));
 // GET /feed/posts
 router.get('/:id', awaitHandlerFactory(usersController.getUserById));
 
+router.patch('/:id', awaitHandlerFactory(usersController.updateUser));
 // POST /feed/post
 // router.post('/', usersController.createPost);
 

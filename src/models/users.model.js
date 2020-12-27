@@ -28,6 +28,17 @@ class UserModel {
         // return back the first row (user)
         return result[0];
     }
+
+    update = async (params, id) => {
+        const { columnSet, values } = multipleColumnSet(params)
+
+        const sql = `UPDATE ${this.tableName} SET ${columnSet} WHERE id = ?`;
+
+        const result = await query(sql, [...values, id]);
+
+        return result;
+    }
+
 }
 
 module.exports = new UserModel;

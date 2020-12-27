@@ -1,19 +1,3 @@
-// exports.getPosts = (req, res, next) => {
-//   res.status(200).json({
-//     posts: [{ title: 'First Post', content: 'This is the first post!' }]
-//   });
-// };
-
-// exports.createPost = (req, res, next) => {
-//   const title = req.body.title;
-//   const content = req.body.content;
-//   // Create post in db
-//   res.status(201).json({
-//     message: 'Post created successfully!',
-//     post: { id: new Date().toISOString(), title: title, content: content }
-//   });
-// };
-
 const UserModel = require('../models/users.model');
 const HttpException = require('../utils/HttpException.utils');
 const dotenv = require('dotenv');
@@ -44,6 +28,29 @@ class UserController {
 
       res.send(user);
   };
+
+  updateUser = async (req, res, next) => {
+
+    const { ...restOfUpdates } = req.body;
+
+
+
+    // do the update query and get the result
+    // it can be partial edit
+    const result = await UserModel.update(restOfUpdates, req.params.id);
+
+    if (!result) {
+        throw new HttpException(404, 'Something went wrong');
+    }
+
+    const { affectedRows, changedRows, info } = result;
+
+    const message = !affectedRows ? 'User not found' :
+        affectedRows && changedRows ? 'User updated successfully' : 'Updated failed';
+
+    res.send({ message, info });
+};
+
 }
 
 module.exports = new UserController;

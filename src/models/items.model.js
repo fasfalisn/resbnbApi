@@ -1,7 +1,7 @@
 const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
 
-class UserModel {
+class ItemModel {
     tableName = 'item';
 
     find = async (params = {}) => {
@@ -30,4 +30,4 @@ class UserModel {
     }
 }
 
-module.exports = new UserModel;
+module.exports = new ItemModel;

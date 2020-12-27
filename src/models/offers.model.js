@@ -1,8 +1,8 @@
 const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
 
-class OrderModel {
-    tableName = '`order`';
+class OfferModel {
+    tableName = 'offer';
 
     find = async (params = {}) => {
         let sql = `SELECT * FROM ${this.tableName}`;
@@ -30,4 +30,4 @@ class OrderModel {
     }
 }
 
-module.exports = new OrderModel;
+module.exports = new OfferModel;
