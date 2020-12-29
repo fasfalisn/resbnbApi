@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth.middleware');
 const usersController = require('../controllers/users.controller');
 const awaitHandlerFactory = require('../middleware/awaitHandlerFactory.middleware');
 const { validateLogin } = require('../middleware/validators/userValidator.middleware');
@@ -8,7 +9,7 @@ const { validateLogin } = require('../middleware/validators/userValidator.middle
 // GET /feed/posts
 router.get('/', awaitHandlerFactory(usersController.getAllUsers));
 // GET /feed/posts
-router.get('/:id', awaitHandlerFactory(usersController.getUserById));
+router.get('/:id', auth(), awaitHandlerFactory(usersController.getUserById));
 
 router.put('/:id', awaitHandlerFactory(usersController.updateUser));
 
