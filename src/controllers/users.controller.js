@@ -77,11 +77,11 @@ class UserController {
     console.log(user);
     
     const secretKey = process.env.SECRET_JWT || "";
-    const token = jwt.sign({ userid: user.userid.toString() }, secretKey, {
+    const token = jwt.sign({ userid: user.UserID.toString() }, secretKey, {
       expiresIn: "24h",
     });
 
-    res.status(201).send(token,"User was created!");
+    res.send({token});
   };
 
   userLogin = async (req, res, next) => {
@@ -91,14 +91,14 @@ class UserController {
       throw new HttpException(401, "Unable to login!");
     }
 
-    const isMatch = await bcrypt.compare(req.body.password, user.password);
+    const isMatch = await bcrypt.compare(req.body.password, user.Password);
 
     if (!isMatch) {
       throw new HttpException(401, 'Incorrect password!');
   }
 
     const secretKey = process.env.SECRET_JWT || "";
-    const token = jwt.sign({ userid: user.userid.toString() }, secretKey, {
+    const token = jwt.sign({ userid: user.UserID.toString() }, secretKey, {
       expiresIn: "24h",
     });
 
