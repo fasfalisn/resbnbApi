@@ -6,7 +6,7 @@ class HouseModel {
     wh = 'valid';
 
     find = async (params = {}) => {
-        let sql = `SELECT * FROM ${this.tableName} WHERE status = ?`;
+        let sql = `SELECT Type,Name FROM ${this.tableName} JOIN house ON house.houseid = house_has_offers.houseid WHERE status = ?`;
 
         if (!Object.keys(params).length) {
             return await query(sql, [this.wh]);
