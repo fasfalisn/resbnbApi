@@ -15,7 +15,7 @@ router.get('/host/:id', awaitHandlerFactory(housesController.getHousesByHostId))
 
 router.post('/', awaitHandlerFactory(housesController.createHouse));
 
-router.patch('/:id', awaitHandlerFactory(housesController.updateHouse));
+router.put('/:id', awaitHandlerFactory(housesController.updateHouse));
 
 router.delete('/:id', awaitHandlerFactory(housesController.deleteHouse));
 

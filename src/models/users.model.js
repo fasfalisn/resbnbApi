@@ -39,11 +39,11 @@ class UserModel {
         return result;
     }
 
-    create = async ({ name, email}) => {
+    create = async ({ email,name,password}) => {
         const sql = `INSERT INTO ${this.tableName}
-        (name, email) VALUES (?,?)`;
+        (email,name,password) VALUES (?,?,?)`;
 
-        const result = await query(sql, [name, email]);
+        const result = await query(sql, [email,name,password]);
         const affectedRows = result ? result.affectedRows : 0;
 
         return affectedRows;

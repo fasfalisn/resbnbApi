@@ -1,6 +1,8 @@
 const UserModel = require("../models/users.model");
 const HttpException = require("../utils/HttpException.utils");
+const jwt = require('jsonwebtoken');
 const dotenv = require("dotenv");
+const bcrypt = require("bcryptjs");
 dotenv.config();
 
 class UserController {
@@ -34,6 +36,12 @@ class UserController {
 
     // do the update query and get the result
     // it can be partial edit
+    if (req.body.password) {
+      req.body.password = await bcrypt.hash(req.body.password, 8).catch(err => {
+        throw new HttpException(err.status,"Couldn't Hash");
+      });
+    }
+
     const result = await UserModel.update(req.body, req.params.id);
 
     if (!result) {
@@ -52,32 +60,47 @@ class UserController {
   };
 
   createUser = async (req, res, next) => {
+    if (req.body.password) {
+      req.body.password = await bcrypt.hash(req.body.password, 8).catch(err => {
+        throw new HttpException(err.status,"Couldn't Hash");
+      });
+    }
     const result = await UserModel.create(req.body);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");
     }
 
-    res.status(201).send("User was created!");
+    const user = await UserModel.findOne({ email: req.body.email });
+    
+    const secretKey = process.env.SECRET_JWT || "";
+    const token = jwt.sign({ userid: user.userid.toString() }, secretKey, {
+      expiresIn: "24h",
+    });
+
+    res.status(201).send(token,"User was created!");
   };
 
   userLogin = async (req, res, next) => {
-
-    const user = await UserModel.findOne({ email:req.body });
+    const user = await UserModel.findOne({ email: req.body.email });
 
     if (!user) {
-        throw new HttpException(401, 'Unable to login!');
+      throw new HttpException(401, "Unable to login!");
     }
 
-    // user matched!
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+
+    if (!isMatch) {
+      throw new HttpException(401, 'Incorrect password!');
+  }
+
     const secretKey = process.env.SECRET_JWT || "";
-    const token = jwt.sign({ user_id: user.id.toString() }, secretKey, {
-        expiresIn: '24h'
+    const token = jwt.sign({ userid: user.userid.toString() }, secretKey, {
+      expiresIn: "24h",
     });
 
-    res.send({  token });
-};
-  
+    res.status(200).send({ token, userid: user.userid });
+  };
 }
 
 module.exports = new UserController();
