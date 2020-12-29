@@ -60,18 +60,21 @@ class UserController {
   };
 
   createUser = async (req, res, next) => {
+    console.log(req.body.name);
     if (req.body.password) {
-      req.body.password = await bcrypt.hash(req.body.password, 8).catch(err => {
+      req.body.password = await bcrypt.hash(req.body.password, 12).catch(err => {
         throw new HttpException(err.status,"Couldn't Hash");
       });
     }
-    const result = await UserModel.create(req.body);
 
+    const result = await UserModel.create(req.body);
+    
     if (!result) {
       throw new HttpException(500, "Something went wrong");
     }
 
     const user = await UserModel.findOne({ email: req.body.email });
+    console.log(user);
     
     const secretKey = process.env.SECRET_JWT || "";
     const token = jwt.sign({ userid: user.userid.toString() }, secretKey, {
