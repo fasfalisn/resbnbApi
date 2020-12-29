@@ -18,11 +18,8 @@ const auth = (...roles) => {
             const secretKey = process.env.SECRET_JWT || "supersecret";
 
             // Verify Token
-            try {
-                const decoded = jwt.verify(token, secretKey);
-            } catch(err) {
-                throw new HttpException(500, 'Error Occured!');
-            }
+            const decoded = jwt.verify(token, secretKey);
+            
             
             const user = await UserModel.findOne({ UserID: decoded.UserID });
 
