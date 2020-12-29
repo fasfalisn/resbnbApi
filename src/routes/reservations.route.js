@@ -9,6 +9,8 @@ router.get('/', awaitHandlerFactory(reservationsController.getAllReservations));
 // GET /feed/posts
 router.get('/:id', awaitHandlerFactory(reservationsController.getReservationById));
 
+router.get('/user/:userid', awaitHandlerFactory(reservationsController.getReservationsByUserId));
+
 // POST /feed/post
 // router.post('/', usersController.createPost);
 

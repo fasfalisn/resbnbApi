@@ -24,8 +24,8 @@ const itemsRoutes = require('./routes/items.route');
 const offersRoutes = require('./routes/offers.route');
 const ordersRoutes = require('./routes/orders.route');
 const reservationsRoutes = require('./routes/reservations.route');
-// const househasoffersRoutes = require('./routes/househasoffers.route');
-// const userhasoffersRoutes = require('./routes/userhasoffers.route');
+const househasoffersRoutes = require('./routes/househasoffers.route');
+const userhasoffersRoutes = require('./routes/userhasoffers.route');
 const usermessagesRoutes = require('./routes/usermessages.route');
 const userrateshouseRoutes = require('./routes/userrateshouse.route');
 
@@ -41,8 +41,8 @@ app.use('/api/items', itemsRoutes);
 app.use('/api/offers', offersRoutes);
 app.use('/api/orders', ordersRoutes);
 app.use('/api/reservations', reservationsRoutes);
-// app.use('/api/house-has-offers', househasoffersRoutes);
-// app.use('/api/user-has-offers', userhasoffersRoutes);
+app.use('/api/house-has-offers', househasoffersRoutes);
+app.use('/api/user-has-offers', userhasoffersRoutes);
 app.use('/api/user-messages', usermessagesRoutes);
 app.use('/api/user-rates-house', userrateshouseRoutes);
 

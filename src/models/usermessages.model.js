@@ -35,11 +35,18 @@ class UserMessageModel {
     findOnesMessages = async (params) => {
         const { columnSet, values } = multipleColumnSetOr(params)
 
-        const sql = `SELECT * FROM ${this.tableName}
+        const sql = `SELECT UserID,Name FROM ${this.tableName}
+        JOIN user ON user.UserID = user_messages.To_UserID
+        WHERE ${columnSet}
+        union
+        SELECT UserID,Name FROM ${this.tableName}
+        JOIN user ON user.UserID = user_messages.From_UserID
         WHERE ${columnSet}`;
+
+        const val = values.concat(values);
         // sql += ` GROUP BY to_userid`;
 
-        const result = await query(sql, [...values]);
+        const result = await query(sql, [...val]);
 
         // return back the first row (user)
         return result;
@@ -49,6 +56,7 @@ class UserMessageModel {
         const { columnSet, values } = multipleColumnSetAnd(params)
 
         const sql = `SELECT * FROM ${this.tableName}
+
         WHERE ${columnSet}`;
         // sql += ` GROUP BY to_userid`;
 

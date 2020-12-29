@@ -28,6 +28,20 @@ class UserController {
 
       res.send(reservation);
   };
+
+  getReservationsByUserId = async (req, res, next) => {
+    let reservationList = await ReservationModel.find({ userid: res.params.userid});
+    if (!reservationList.length) {
+        throw new HttpException(404, 'Users not found');
+    }
+
+    // userList = userList.map(user => {
+    //     const { password, ...userWithoutPassword } = user;
+    //     return userWithoutPassword;
+    // });
+
+    res.send(reservationList);
+};
 }
 
 module.exports = new UserController;
