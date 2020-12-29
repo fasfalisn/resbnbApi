@@ -10,7 +10,9 @@ router.get('/', awaitHandlerFactory(usersController.getAllUsers));
 router.get('/:id', awaitHandlerFactory(usersController.getUserById));
 
 router.patch('/:id', awaitHandlerFactory(usersController.updateUser));
-// POST /feed/post
-// router.post('/', usersController.createPost);
+
+router.post('/', awaitHandlerFactory(usersController.createUser));
+
+router.post('/login', awaitHandlerFactory(usersController.userLogin));
 
 module.exports = router;

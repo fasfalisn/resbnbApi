@@ -70,6 +70,16 @@ class UserMessagesController {
 
     res.send(userMessagesList.concat(userMessagesList2));
   };
+
+  createMessage = async (req, res, next) => {
+    const result = await UserModel.create(req.body);
+
+    if (!result) {
+      throw new HttpException(500, "Something went wrong");
+    }
+
+    res.status(201).send("User was created!");
+  };
 }
 
 module.exports = new UserMessagesController();

@@ -28,6 +28,26 @@ class ReservationModel {
         // return back the first row (user)
         return result[0];
     }
+
+    update = async (params, id) => {
+        const { columnSet, values } = multipleColumnSet(params)
+
+        const sql = `UPDATE ${this.tableName} SET ${columnSet} WHERE id = ?`;
+
+        const result = await query(sql, [...values, id]);
+
+        return result;
+    }
+
+    create = async ({ userid, houseid, paymentstatus, status, numguests, bill, date}) => {
+        const sql = `INSERT INTO ${this.tableName}
+        ( userid, houseid, paymentstatus, status, numguests, bill, date) VALUES (?,?,?,?,?,?,?)`;
+
+        const result = await query(sql, [resid, userid, houseid, paymentstatus, status, numguests, bill, date]);
+        const affectedRows = result ? result.affectedRows : 0;
+
+        return affectedRows;
+    }
 }
 
 module.exports = new ReservationModel;

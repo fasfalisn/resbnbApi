@@ -39,6 +39,17 @@ class UserModel {
         return result;
     }
 
+    create = async ({ name, email}) => {
+        const sql = `INSERT INTO ${this.tableName}
+        (name, email) VALUES (?,?)`;
+
+        const result = await query(sql, [name, email]);
+        const affectedRows = result ? result.affectedRows : 0;
+
+        return affectedRows;
+    }
+
+
 }
 
 module.exports = new UserModel;

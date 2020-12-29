@@ -28,6 +28,26 @@ class OrderModel {
         // return back the first row (user)
         return result[0];
     }
+
+    create = async ({ resid, itemid, quantity}) => {
+        const sql = `INSERT INTO ${this.tableName}
+        (resid, itemid, quantity) VALUES (?,?,?)`;
+
+        const result = await query(sql, [resid, itemid, quantity]);
+        const affectedRows = result ? result.affectedRows : 0;
+
+        return affectedRows;
+    }
+
+    update = async (params, id) => {
+        const { columnSet, values } = multipleColumnSet(params)
+
+        const sql = `UPDATE ${this.tableName} SET ${columnSet} WHERE id = ?`;
+
+        const result = await query(sql, [...values, id]);
+
+        return result;
+    }
 }
 
 module.exports = new OrderModel;

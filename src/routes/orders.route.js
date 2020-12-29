@@ -9,6 +9,9 @@ router.get('/', awaitHandlerFactory(ordersController.getAllOrders));
 // GET /feed/posts
 router.get('/:id', awaitHandlerFactory(ordersController.getOrderById));
 
+router.post('/', awaitHandlerFactory(ordersController.createOrder));
+
+router.patch('/', awaitHandlerFactory(ordersController.updateOrder));
 // POST /feed/post
 // router.post('/', usersController.createPost);
 

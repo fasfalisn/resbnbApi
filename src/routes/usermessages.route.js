@@ -13,6 +13,7 @@ router.get('/user/:id', awaitHandlerFactory(userMessagesController.getOnesUserMe
 
 router.get('/user/:sender/:receiver', awaitHandlerFactory(userMessagesController.getOnesUserMessagesWithOne));
 
+router.post('/', awaitHandlerFactory(userMessagesController.createMessage));
 
 // POST /feed/post
 // router.post('/', usersController.createPost);

@@ -12,7 +12,11 @@ router.get('/:id', awaitHandlerFactory(housesController.getHouseById));
 router.get('/city/:city', awaitHandlerFactory(housesController.getHousesByCity));
 
 router.get('/host/:id', awaitHandlerFactory(housesController.getHousesByHostId));
-// POST /feed/post
-// router.post('/', usersController.createPost);
+
+router.post('/', awaitHandlerFactory(housesController.createHouse));
+
+router.patch('/:id', awaitHandlerFactory(housesController.updateHouse));
+
+router.delete('/:id', awaitHandlerFactory(housesController.deleteHouse));
 
 module.exports = router;

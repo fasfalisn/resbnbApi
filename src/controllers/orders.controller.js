@@ -47,6 +47,39 @@ class UserController {
 
     res.send(OrderList);  
   };
+
+  createOrder = async (req, res, next) => {
+    const result = await OrderModel.create(req.body);
+
+    if (!result) {
+      throw new HttpException(500, "Something went wrong");
+    }
+
+    res.status(201).send("Order was created!");
+  };
+
+  updateOrder = async (req, res, next) => {
+    // const { ...restOfUpdates } = req.body;
+
+    // do the update query and get the result
+    // it can be partial edit
+    const result = await UserModel.update(req.body, req.params.id);
+
+    if (!result) {
+      throw new HttpException(404, "Something went wrong");
+    }
+
+    const { affectedRows, changedRows, info } = result;
+
+    const message = !affectedRows
+      ? "Order not found"
+      : affectedRows && changedRows
+      ? "Order updated successfully"
+      : "Updated failed";
+
+    res.send({ message, info });
+  };
+
 }
 
 module.exports = new UserController;
