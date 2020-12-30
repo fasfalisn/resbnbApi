@@ -20,25 +20,24 @@ const auth = (...roles) => {
             // Verify Token
             const decoded = jwt.verify(token, secretKey);
             
+            const user = await UserModel.findOne({ UserID: decoded.userid });
             
-            const user = await UserModel.findOne({ UserID: decoded.UserID });
-
             if (!user) {
                 throw new HttpException(401, 'Authentication failed!');
             }
 
             // check if the current user is the owner user
-            // const ownerAuthorized = req.params.id == user.UserID;
+            const ownerAuthorized = req.params.id == user.UserID;
 
             // if the current user is not the owner and
             // if the user role don't have the permission to do this action.
             // the user will get this error
-            // if (!ownerAuthorized && roles.length && !roles.includes(user.role)) {
-            //     throw new HttpException(401, 'Unauthorized');
-            // }
+            if (!ownerAuthorized && roles.length && !roles.includes(user.role)) {
+                throw new HttpException(401, 'Unauthorized');
+            }
 
             // if the user has permissions
-            // req.currentUser = user;
+            req.currentUser = user;
             next();
 
         } catch (e) {
