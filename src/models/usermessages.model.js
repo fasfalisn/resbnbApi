@@ -84,7 +84,7 @@ class UserMessageModel {
     const sql = `INSERT INTO ${this.tableName}
     (from_userid,to_userid, text,date) VALUES (?,?,?,?)`;
 
-    const result = await query(sql, [name, email]);
+    const result = await query(sql, [from_userid,to_userid, text,date]);
     const affectedRows = result ? result.affectedRows : 0;
 
     return affectedRows;

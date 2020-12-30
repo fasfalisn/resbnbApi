@@ -13,7 +13,7 @@ router.get('/user/:userid', awaitHandlerFactory(reservationsController.getReserv
 
 router.post('/', awaitHandlerFactory(reservationsController.createReservation));
 
-router.patch('/:id', awaitHandlerFactory(reservationsController.updateReservation));
+router.put('/:id', awaitHandlerFactory(reservationsController.updateReservation));
 // POST /feed/post
 // router.post('/', usersController.createPost);
 

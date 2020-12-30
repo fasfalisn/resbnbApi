@@ -63,7 +63,7 @@ class UserController {
 
     // do the update query and get the result
     // it can be partial edit
-    const result = await UserModel.update(req.body, req.params.id);
+    const result = await OrderModel.update(req.body, req.params.resid, req.params.itemid);
 
     if (!result) {
       throw new HttpException(404, "Something went wrong");

@@ -72,13 +72,13 @@ class UserMessagesController {
   };
 
   createMessage = async (req, res, next) => {
-    const result = await UserModel.create(req.body);
+    const result = await UserMessageModel.create(req.body);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");
     }
 
-    res.status(201).send("User was created!");
+    res.status(201).send("Message was sent!");
   };
 }
 

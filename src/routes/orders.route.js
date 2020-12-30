@@ -11,7 +11,7 @@ router.get('/:id', awaitHandlerFactory(ordersController.getOrderById));
 
 router.post('/', awaitHandlerFactory(ordersController.createOrder));
 
-router.put('/', awaitHandlerFactory(ordersController.updateOrder));
+router.put('/res/:resid/item/:itemid', awaitHandlerFactory(ordersController.updateOrder));
 // POST /feed/post
 // router.post('/', usersController.createPost);
 

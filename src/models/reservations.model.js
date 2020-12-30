@@ -32,7 +32,7 @@ class ReservationModel {
     update = async (params, id) => {
         const { columnSet, values } = multipleColumnSet(params)
 
-        const sql = `UPDATE ${this.tableName} SET ${columnSet} WHERE id = ?`;
+        const sql = `UPDATE ${this.tableName} SET ${columnSet} WHERE resid = ?`;
 
         const result = await query(sql, [...values, id]);
 
@@ -43,7 +43,7 @@ class ReservationModel {
         const sql = `INSERT INTO ${this.tableName}
         ( userid, houseid, paymentstatus, status, numguests, bill, date) VALUES (?,?,?,?,?,?,?)`;
 
-        const result = await query(sql, [resid, userid, houseid, paymentstatus, status, numguests, bill, date]);
+        const result = await query(sql, [ userid, houseid, paymentstatus, status, numguests, bill, date]);
         const affectedRows = result ? result.affectedRows : 0;
 
         return affectedRows;

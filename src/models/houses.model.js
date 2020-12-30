@@ -32,7 +32,7 @@ class HouseModel {
     update = async (params, id) => {
         const { columnSet, values } = multipleColumnSet(params)
 
-        const sql = `UPDATE ${this.tableName} SET ${columnSet} WHERE id = ?`;
+        const sql = `UPDATE ${this.tableName} SET ${columnSet} WHERE houseid = ?`;
 
         const result = await query(sql, [...values, id]);
 
@@ -43,7 +43,7 @@ class HouseModel {
         const sql = `INSERT INTO ${this.tableName}
         ( description,name,type,street,zip,city,hostid) VALUES (?,?,?,?,?,?,?)`;
 
-        const result = await query(sql, [houseid, description,name,type,street,zip,city,hostid]);
+        const result = await query(sql, [ description,name,type,street,zip,city,hostid]);
         const affectedRows = result ? result.affectedRows : 0;
 
         return affectedRows;
@@ -51,7 +51,7 @@ class HouseModel {
 
     delete = async (id) => {
         const sql = `DELETE FROM ${this.tableName}
-        WHERE id = ?`;
+        WHERE houseid = ?`;
         const result = await query(sql, [id]);
         const affectedRows = result ? result.affectedRows : 0;
 

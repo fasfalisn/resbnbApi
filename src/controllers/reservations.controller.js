@@ -57,7 +57,7 @@ class UserController {
     res.status(201).send("Reservation was created!");
   };
 
-  updateUser = async (req, res, next) => {
+  updateReservation = async (req, res, next) => {
     // const { ...restOfUpdates } = req.body;
 
     // do the update query and get the result

@@ -1,4 +1,5 @@
 const query = require('../db/db-connection');
+const { multipleColumnSetAnd } = require('../utils/common-and.utils');
 const { multipleColumnSet } = require('../utils/common.utils');
 
 class OrderModel {
@@ -39,12 +40,12 @@ class OrderModel {
         return affectedRows;
     }
 
-    update = async (params, id) => {
+    update = async (params, resid, itemid) => {
         const { columnSet, values } = multipleColumnSet(params)
 
-        const sql = `UPDATE ${this.tableName} SET ${columnSet} WHERE id = ?`;
+        const sql = `UPDATE ${this.tableName} SET ${columnSet} WHERE resid = ? and itemid = ?`;
 
-        const result = await query(sql, [...values, id]);
+        const result = await query(sql, [...values, resid, itemid]);
 
         return result;
     }
