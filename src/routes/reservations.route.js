@@ -13,7 +13,7 @@ router.get('/user/:userid', awaitHandlerFactory(reservationsController.getReserv
 
 router.post('/', createReservationSchema, awaitHandlerFactory(reservationsController.createReservation));
 
-router.put('/:id', updateReservationSchema. awaitHandlerFactory(reservationsController.updateReservation));
+router.put('/:id', updateReservationSchema, awaitHandlerFactory(reservationsController.updateReservation));
 
 
 module.exports = router;
