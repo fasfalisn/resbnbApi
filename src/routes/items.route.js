@@ -2,18 +2,19 @@ const express = require('express');
 const router = express.Router();
 const itemsController = require('../controllers/items.controller');
 const awaitHandlerFactory = require('../middleware/awaitHandlerFactory.middleware');
+const { createItemSchema, updateItemSchema } = require('../middleware/validators/itemValidator.middleware');
 
 
-// GET /feed/posts
+// GET all
 router.get('/', awaitHandlerFactory(itemsController.getAllItems));
-// GET /feed/posts
+// GET 
 router.get('/house/:id', awaitHandlerFactory(itemsController.getItemsByHouseId));
 
 // post request
-router.post('/', awaitHandlerFactory(itemsController.createItem));
+router.post('/', createItemSchema, awaitHandlerFactory(itemsController.createItem));
 
 //put request
-router.put('/house/:id', awaitHandlerFactory(itemsController.updateItem));
+router.put('/house/:id', updateItemSchema, awaitHandlerFactory(itemsController.updateItem));
 
 //delete request
 router.delete('/house/:id', awaitHandlerFactory(itemsController.deleteItem));

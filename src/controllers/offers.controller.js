@@ -3,17 +3,14 @@ const HttpException = require('../utils/HttpException.utils');
 const dotenv = require('dotenv');
 dotenv.config()
 
-class UserController {
+class OffersController {
   getAllOffers = async (req, res, next) => {
       let offerList = await OfferModel.find();
       if (!offerList.length) {
           throw new HttpException(404, 'Offers not found');
       }
 
-      // userList = userList.map(user => {
-      //     const { password, ...userWithoutPassword } = user;
-      //     return userWithoutPassword;
-      // });
+
 
       res.send(offerList);
   };
@@ -30,4 +27,4 @@ class UserController {
   };
 }
 
-module.exports = new UserController;
+module.exports = new OffersController;

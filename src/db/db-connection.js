@@ -2,20 +2,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 const mysql2 = require('mysql2');
 
-// const db = mysql2.createPool({
-//     host: 'localhost',
-//     user: 'root',
-//     password: 'root',
-//     database: 'resbnb_db'
-// })
-
-// db.connect((err)=>{
-//     if(err){
-//         throw err;
-//     }
-//     console.log('Connected');
-// });
-
 class DBConnection {
     constructor() {
         this.db = mysql2.createPool({

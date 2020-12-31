@@ -3,17 +3,13 @@ const HttpException = require("../utils/HttpException.utils");
 const dotenv = require("dotenv");
 dotenv.config();
 
-class UserController {
+class UserRatesHouseController {
   getAllRatings = async (req, res, next) => {
     let RatingList = await UserRatesHouseModel.find();
     if (!RatingList.length) {
       throw new HttpException(404, "Users not found");
     }
 
-    // userList = userList.map(user => {
-    //     const { password, ...userWithoutPassword } = user;
-    //     return userWithoutPassword;
-    // });
 
     res.send(RatingList);
   };
@@ -24,10 +20,6 @@ class UserController {
       throw new HttpException(404, "Users not found");
     }
 
-    // userList = userList.map(user => {
-    //     const { password, ...userWithoutPassword } = user;
-    //     return userWithoutPassword;
-    // });
 
     res.send(RatingList);
   };
@@ -38,10 +30,6 @@ class UserController {
       throw new HttpException(404, "Users not found");
     }
 
-    // userList = userList.map(user => {
-    //     const { password, ...userWithoutPassword } = user;
-    //     return userWithoutPassword;
-    // });
 
     res.send(RatingList);
   };
@@ -57,4 +45,4 @@ class UserController {
   };
 }
 
-module.exports = new UserController();
+module.exports = new UserRatesHouseController();

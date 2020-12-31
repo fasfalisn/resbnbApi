@@ -3,17 +3,17 @@ const router = express.Router();
 const auth = require('../middleware/auth.middleware');
 const usersController = require('../controllers/users.controller');
 const awaitHandlerFactory = require('../middleware/awaitHandlerFactory.middleware');
-const { validateLogin } = require('../middleware/validators/userValidator.middleware');
+const { validateLogin, createUserSchema,updateUserSchema } = require('../middleware/validators/userValidator.middleware');
 
 
-// GET /feed/posts
+// GET 
 router.get('/', awaitHandlerFactory(usersController.getAllUsers));
-// GET /feed/posts
+// GET 
 router.get('/:id', auth(), awaitHandlerFactory(usersController.getUserById));
 
-router.put('/:id', awaitHandlerFactory(usersController.updateUser));
+router.put('/:id', createUserSchema, awaitHandlerFactory(usersController.updateUser));
 
-router.post('/', awaitHandlerFactory(usersController.createUser));
+router.post('/', updateUserSchema, awaitHandlerFactory(usersController.createUser));
 
 router.post('/login', validateLogin, awaitHandlerFactory(usersController.userLogin));
 

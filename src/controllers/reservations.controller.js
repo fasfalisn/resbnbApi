@@ -3,17 +3,13 @@ const HttpException = require("../utils/HttpException.utils");
 const dotenv = require("dotenv");
 dotenv.config();
 
-class UserController {
+class ReservationController {
   getAllReservations = async (req, res, next) => {
     let reservationList = await ReservationModel.find();
     if (!reservationList.length) {
       throw new HttpException(404, "Users not found");
     }
 
-    // userList = userList.map(user => {
-    //     const { password, ...userWithoutPassword } = user;
-    //     return userWithoutPassword;
-    // });
 
     res.send(reservationList);
   };
@@ -39,10 +35,7 @@ class UserController {
       throw new HttpException(404, "Users not found");
     }
 
-    // userList = userList.map(user => {
-    //     const { password, ...userWithoutPassword } = user;
-    //     return userWithoutPassword;
-    // });
+
 
     res.send(reservationList);
   };
@@ -81,4 +74,4 @@ class UserController {
 
 }
 
-module.exports = new UserController();
+module.exports = new ReservationController();

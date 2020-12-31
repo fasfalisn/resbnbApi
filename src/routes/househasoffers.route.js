@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const househasoffersController = require('../controllers/househasoffers.controller');
+const houseHasOffersController = require('../controllers/househasoffers.controller');
 const awaitHandlerFactory = require('../middleware/awaitHandlerFactory.middleware');
 
 
-// GET /feed/posts
-router.get('/', awaitHandlerFactory(househasoffersController.getAllHouses));
-// GET /feed/posts
-// router.get('/:id', awaitHandlerFactory(househasoffersController.getHouseById));
+// GET 
+router.get('/', awaitHandlerFactory(houseHasOffersController.getAllHouses));
 
 
 module.exports = router;

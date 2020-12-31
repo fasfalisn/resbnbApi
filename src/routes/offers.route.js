@@ -4,12 +4,10 @@ const offersController = require('../controllers/offers.controller');
 const awaitHandlerFactory = require('../middleware/awaitHandlerFactory.middleware');
 
 
-// GET /feed/posts
+// GET all
 router.get('/', awaitHandlerFactory(offersController.getAllOffers));
-// GET /feed/posts
+// GET one
 router.get('/:id', awaitHandlerFactory(offersController.getOfferById));
 
-// POST /feed/post
-// router.post('/', offersController.createPost);
 
 module.exports = router;

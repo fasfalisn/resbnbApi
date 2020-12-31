@@ -10,10 +10,6 @@ class UserHasOffersController {
           throw new HttpException(404, 'Offers not found');
       }
 
-      // userList = userList.map(user => {
-      //     const { password, ...userWithoutPassword } = user;
-      //     return userWithoutPassword;
-      // });
 
       res.send(offerList);
   };

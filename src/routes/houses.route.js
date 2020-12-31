@@ -2,20 +2,21 @@ const express = require('express');
 const router = express.Router();
 const housesController = require('../controllers/houses.controller');
 const awaitHandlerFactory = require('../middleware/awaitHandlerFactory.middleware');
+const { createHouseSchema, updateHouseSchema } = require('../middleware/validators/houseValidator.middleware');
 
 
-// GET /feed/posts
+// GET all
 router.get('/', awaitHandlerFactory(housesController.getAllHouses));
-// GET /feed/posts
+// GET one
 router.get('/:id', awaitHandlerFactory(housesController.getHouseById));
 
 router.get('/city/:city', awaitHandlerFactory(housesController.getHousesByCity));
 
 router.get('/host/:id', awaitHandlerFactory(housesController.getHousesByHostId));
 
-router.post('/', awaitHandlerFactory(housesController.createHouse));
+router.post('/', createHouseSchema,awaitHandlerFactory(housesController.createHouse));
 
-router.put('/:id', awaitHandlerFactory(housesController.updateHouse));
+router.put('/:id', updateHouseSchema,awaitHandlerFactory(housesController.updateHouse));
 
 router.delete('/:id', awaitHandlerFactory(housesController.deleteHouse));
 

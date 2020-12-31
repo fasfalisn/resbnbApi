@@ -3,17 +3,13 @@ const HttpException = require("../utils/HttpException.utils");
 const dotenv = require("dotenv");
 dotenv.config();
 
-class UserController {
+class HouseController {
   getAllHouses = async (req, res, next) => {
     let HouseList = await HouseModel.find();
     if (!HouseList.length) {
       throw new HttpException(404, "Users not found");
     }
 
-    // userList = userList.map(user => {
-    //     const { password, ...userWithoutPassword } = user;
-    //     return userWithoutPassword;
-    // });
 
     res.send(HouseList);
   };
@@ -35,10 +31,6 @@ class UserController {
       throw new HttpException(404, "Houses not found");
     }
 
-    // userList = userList.map(user => {
-    //     const { password, ...userWithoutPassword } = user;
-    //     return userWithoutPassword;
-    // });
 
     res.send(HouseList);
   };
@@ -49,10 +41,6 @@ class UserController {
       throw new HttpException(404, "Houses not found");
     }
 
-    // userList = userList.map(user => {
-    //     const { password, ...userWithoutPassword } = user;
-    //     return userWithoutPassword;
-    // });
 
     res.send(HouseList);
   };
@@ -99,4 +87,4 @@ class UserController {
 
 }
 
-module.exports = new UserController();
+module.exports = new HouseController();

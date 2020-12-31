@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userMessagesController = require('../controllers/usermessages.controller');
 const awaitHandlerFactory = require('../middleware/awaitHandlerFactory.middleware');
+const { createUserMessagesSchema } = require('../middleware/validators/userMessagesValidator.middleware');
 
 
 // GET /feed/posts
@@ -13,9 +14,6 @@ router.get('/user/:id', awaitHandlerFactory(userMessagesController.getOnesUserMe
 
 router.get('/user/:sender/:receiver', awaitHandlerFactory(userMessagesController.getOnesUserMessagesWithOne));
 
-router.post('/', awaitHandlerFactory(userMessagesController.createMessage));
-
-// POST /feed/post
-// router.post('/', usersController.createPost);
+router.post('/', createUserMessagesSchema, awaitHandlerFactory(userMessagesController.createMessage));
 
 module.exports = router;
