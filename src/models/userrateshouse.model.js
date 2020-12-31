@@ -28,6 +28,17 @@ class RatingsModel {
         // return back the first row (user)
         return result[0];
     }
+
+    // need to check if date should be passed as a parameter in the function below.
+    createRating = async (userid,houseid,{ description, rating, date}) => {
+        const sql = `INSERT INTO ${this.tableName}
+        ( userid, houseid, description, rating, date) VALUES (?,?,?,?,?)`;
+
+        const result = await query(sql, [userid,houseid,description, rating, date]);
+        const affectedRows = result ? result.affectedRows : 0;
+
+        return affectedRows;
+    }
 }
 
 module.exports = new RatingsModel;

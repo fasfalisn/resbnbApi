@@ -8,7 +8,14 @@ const awaitHandlerFactory = require('../middleware/awaitHandlerFactory.middlewar
 router.get('/', awaitHandlerFactory(itemsController.getAllItems));
 // GET /feed/posts
 router.get('/house/:id', awaitHandlerFactory(itemsController.getItemsByHouseId));
-// POST /feed/post
-// router.post('/', usersController.createPost);
+
+// post request
+router.post('/', awaitHandlerFactory(itemsController.createItem));
+
+//put request
+router.put('/house/:id', awaitHandlerFactory(itemsController.updateItem));
+
+//delete request
+router.delete('/house/:id', awaitHandlerFactory(itemsController.deleteItem));
 
 module.exports = router;

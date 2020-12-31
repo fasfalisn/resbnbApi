@@ -28,6 +28,37 @@ class ItemModel {
         // return back the first row (user)
         return result[0];
     }
+
+    create = async ({ type, description, name, price, houseid }) => {
+        const sql = `INSERT INTO ${this.tableName}
+        ( type, description, name, price, houseid) WHERE VALUES (?,?,?,?,?)`;
+
+        const result = await query(sql, [itemid, type, description, name, price, houseid ]);
+        const affectedRows = result ? result.affectedRows : 0;
+
+        return affectedRows;
+    }
+
+
+    update = async (params, id) => {
+        const { columnSet, values } = multipleColumnSet(params)
+
+        const sql = `UPDATE ${this.tableName} SET ${columnSet} WHERE itemid = ?`;
+
+        const result = await query(sql, [...values, id]);
+
+        return result;
+    }
+
+
+    delete = async (id) => {
+        const sql = `DELETE FROM ${this.tableName}
+        WHERE itemid = ?`;
+        const result = await query(sql, [id]);
+        const affectedRows = result ? result.affectedRows : 0;
+
+        return affectedRows;
+    }
 }
 
 module.exports = new ItemModel;
