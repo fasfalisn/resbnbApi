@@ -29,6 +29,14 @@ class ReservationModel {
         return result[0];
     }
 
+    findWithHouse = async (params) => {
+        const { columnSet, values } = multipleColumnSet(params)
+        let sql = `SELECT * FROM ${this.tableName} 
+        JOIN house ON house.houseid = reservation.houseid 
+        WHERE ${columnSet}`;
+
+        return await query(sql, [...values]);
+    }
 
     update = async (params, id) => {
         const { columnSet, values } = multipleColumnSet(params)
