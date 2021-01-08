@@ -29,7 +29,7 @@ class ReservationController {
 
   getReservationsByUserId = async (req, res, next) => {
     let reservationList = await ReservationModel.find({
-      userid: res.params.userid,
+      userid: req.params.userid,
     });
     if (!reservationList.length) {
       throw new HttpException(404, "Users not found");
