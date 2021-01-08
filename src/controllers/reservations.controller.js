@@ -35,8 +35,6 @@ class ReservationController {
       throw new HttpException(404, "Users not found");
     }
 
-
-
     res.send(reservationList);
   };
 
