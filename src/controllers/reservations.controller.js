@@ -28,7 +28,7 @@ class ReservationController {
   };
 
   getReservationsByUserId = async (req, res, next) => {
-    let reservationList = await ReservationModel.findWithHouse({
+    let reservationList = await ReservationModel.find({
       userid: req.params.userid,
     });
     if (!reservationList.length) {

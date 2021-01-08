@@ -17,13 +17,13 @@ class ReservationModel {
         return await query(sql, [...values]);
     }
 
-    findWithHouse = async (params = {}) => {
-        const { columnSet, values } = multipleColumnSet(params)
-        let sql = `SELECT * FROM ${this.tableName} 
-        JOIN house ON house.houseid = reservation.houseid 
-        WHERE ${columnSet}`;
+    // findWithHouse = async (params = {}) => {
+    //     const { columnSet, values } = multipleColumnSet(params)
+    //     let sql = `SELECT * FROM ${this.tableName} 
+    //     JOIN house ON house.houseid = reservation.houseid 
+    //     WHERE ${columnSet}`;
 
-        return await query(sql, [...values]);
+    //     return await query(sql, [...values]);
     }
 
     findOne = async (params) => {
