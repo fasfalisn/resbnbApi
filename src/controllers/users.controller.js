@@ -1,6 +1,6 @@
 const UserModel = require("../models/users.model");
 const HttpException = require("../utils/HttpException.utils");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const bcrypt = require("bcryptjs");
 dotenv.config();
@@ -11,7 +11,6 @@ class UserController {
     if (!userList.length) {
       throw new HttpException(404, "Users not found");
     }
-
 
     res.send(userList);
   };
@@ -33,9 +32,11 @@ class UserController {
     // do the update query and get the result
     // it can be partial edit
     if (req.body.password) {
-      req.body.password = await bcrypt.hash(req.body.password, 8).catch(err => {
-        throw new HttpException(err.status,"Couldn't Hash");
-      });
+      req.body.password = await bcrypt
+        .hash(req.body.password, 8)
+        .catch((err) => {
+          throw new HttpException(err.status, "Couldn't Hash");
+        });
     }
 
     const result = await UserModel.update(req.body, req.params.id);
@@ -58,26 +59,29 @@ class UserController {
   createUser = async (req, res, next) => {
     console.log(req.body.name);
     if (req.body.password) {
-      req.body.password = await bcrypt.hash(req.body.password, 12).catch(err => {
-        throw new HttpException(err.status,"Couldn't Hash");
-      });
+      req.body.password = await bcrypt
+        .hash(req.body.password, 12)
+        .catch((err) => {
+          throw new HttpException(err.status, "Couldn't Hash");
+        });
     }
 
     const result = await UserModel.create(req.body);
-    
+
     if (!result) {
       throw new HttpException(500, "Something went wrong");
     }
 
     const user = await UserModel.findOne({ email: req.body.email });
     console.log(user);
-    
+    const userid = user.UserID;
+
     const secretKey = process.env.SECRET_JWT || "";
     const token = jwt.sign({ userid: user.UserID.toString() }, secretKey, {
       expiresIn: "24h",
     });
 
-    res.send({token});
+    res.send({ token, userid });
   };
 
   userLogin = async (req, res, next) => {
@@ -90,15 +94,16 @@ class UserController {
     const isMatch = await bcrypt.compare(req.body.password, user.Password);
 
     if (!isMatch) {
-      throw new HttpException(401, 'Incorrect password!');
-  }
+      throw new HttpException(401, "Incorrect password!");
+    }
 
+    const userid = user.UserID;
     const secretKey = process.env.SECRET_JWT || "";
     const token = jwt.sign({ userid: user.UserID.toString() }, secretKey, {
       expiresIn: "24h",
     });
 
-    res.status(200).send({ token, userid: user.userid });
+    res.status(200).send({ token, userid });
   };
 }
 
