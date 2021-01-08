@@ -24,7 +24,7 @@ class ReservationModel {
     //     WHERE ${columnSet}`;
 
     //     return await query(sql, [...values]);
-    }
+    // }
 
     findOne = async (params) => {
         const { columnSet, values } = multipleColumnSet(params)
