@@ -34,13 +34,25 @@ class UserMessageModel {
   findOnesMessages = async (params) => {
     const { columnSet, values } = multipleColumnSetOr(params);
 
-    const sql = `SELECT UserID,Name FROM ${this.tableName}
-    JOIN user ON user.UserID = user_messages.To_UserID
-    WHERE ${columnSet}
-    union
-    SELECT UserID,Name FROM ${this.tableName}
-    JOIN user ON user.UserID = user_messages.From_UserID
-    WHERE ${columnSet}`;
+    // const sql = `SELECT UserID,Name FROM ${this.tableName}
+    // JOIN user ON user.UserID = user_messages.To_UserID
+    // WHERE ${columnSet}
+    // union
+    // SELECT UserID,Name FROM ${this.tableName}
+    // JOIN user ON user.UserID = user_messages.From_UserID
+    // WHERE ${columnSet}`;
+
+    const sql = `SELECT ContactID, From_UserID, To_UserID, Text, Date, Name
+    FROM ${this.tableName} JOIN user on ( case 
+                                        when user_messages.From_UserID = ${values[0]}
+                                            then user_messages.To_UserID = user.UserID
+                                        when user_messages.From_UserID != ${values[0]}
+                                            then user_messages.From_UserID = user.UserID
+                                      end)
+    WHERE ContactID IN (SELECT max(ContactID)
+                        FROM ${this.tableName}
+                        WHERE From_UserID = ${values[0]} or To_UserID = ${values[0]}
+                        GROUP BY greatest(From_UserID,To_UserID), least(From_UserID,To_UserID))`;
 
     // const sql = `SELECT t1.* FROM ${this.tableName} AS t1
     //     JOIN (SELECT
