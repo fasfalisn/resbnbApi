@@ -52,7 +52,8 @@ class UserMessageModel {
     WHERE ContactID IN (SELECT max(ContactID)
                         FROM ${this.tableName}
                         WHERE From_UserID = ${values[0]} or To_UserID = ${values[0]}
-                        GROUP BY greatest(From_UserID,To_UserID), least(From_UserID,To_UserID))`;
+                        GROUP BY greatest(From_UserID,To_UserID), least(From_UserID,To_UserID)) 
+                        ORDER BY date`;
 
     // const sql = `SELECT t1.* FROM ${this.tableName} AS t1
     //     JOIN (SELECT
