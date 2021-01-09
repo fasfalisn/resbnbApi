@@ -45,7 +45,11 @@ class ReservationController {
       throw new HttpException(500, "Something went wrong");
     }
 
-    res.status(201).send("Reservation was created!");
+    const reservation = await ReservationModel.findOneByUser({houseid: req.body.houseid, userid: req.body.userid})
+    const resid = reservation.resid;
+
+    const message = "Reservation was created!";
+    res.status(201).send({message,resid});
   };
 
   updateReservation = async (req, res, next) => {

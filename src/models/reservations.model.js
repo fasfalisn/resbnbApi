@@ -1,5 +1,7 @@
 const query = require('../db/db-connection');
 const { multipleColumnSet } = require('../utils/common.utils');
+const { multipleColumnSetAnd } = require('../utils/common-and.utils');
+
 
 class ReservationModel {
     tableName = 'reservation';
@@ -21,6 +23,18 @@ class ReservationModel {
         const { columnSet, values } = multipleColumnSet(params)
 
         const sql = `SELECT * FROM ${this.tableName}
+        WHERE ${columnSet}`;
+
+        const result = await query(sql, [...values]);
+
+        // return back the first row (user)
+        return result[0];
+    }
+
+    findOneByUser = async (params) => {
+        const { columnSet, values } = multipleColumnSetAnd(params)
+
+        const sql = `SELECT max(resid) AS resid  FROM ${this.tableName}
         WHERE ${columnSet}`;
 
         const result = await query(sql, [...values]);

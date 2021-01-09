@@ -15,8 +15,6 @@ exports.createOrderSchema = [
         .isInt()
         .withMessage('Invalid id type!'),
     check('quantity')
-        .exists()
-        .withMessage('The quantity of the selected item is required.')
         .isInt(),
 ];
 
@@ -35,8 +33,5 @@ exports.updateOrderSchema = [
         .isInt()
         .withMessage('Invalid id type!'),
     check('quantity')
-        .optional()
-        .exists()
-        .withMessage('The quantity of the selected item is required.')
         .isInt(),
 ];
