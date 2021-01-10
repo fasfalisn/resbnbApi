@@ -50,7 +50,7 @@ class HouseController {
 
     // do the update query and get the result
     // it can be partial edit
-    const result = await HouseModel.update(req,body, req.params.id);
+    const result = await HouseModel.update(req.body, req.params.id);
 
     if (!result) {
       throw new HttpException(404, "Something went wrong");
