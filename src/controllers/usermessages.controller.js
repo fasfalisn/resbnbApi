@@ -46,17 +46,21 @@ class UserMessagesController {
       to_userid: req.params.receiver,
     });
 
-    let userMessagesList2 = await UserMessageModel.findOnesMessagesWithOne({
-        from_userid: req.params.receiver,
-        to_userid: req.params.sender,
-      });
+    // let userMessagesList2 = await UserMessageModel.findOnesMessagesWithOne({
+    //     from_userid: req.params.receiver,
+    //     to_userid: req.params.sender,
+    //   });
 
-    if (!(userMessagesList.concat(userMessagesList2)).length) {
+    // if (!(userMessagesList.concat(userMessagesList2)).length) {
+    //   throw new HttpException(404, "Users not found");
+    // }
+    if (!userMessagesList.length) {
       throw new HttpException(404, "Users not found");
     }
 
 
-    res.send(userMessagesList.concat(userMessagesList2));
+    // res.send(userMessagesList.concat(userMessagesList2));
+    res.send(userMessagesList);
   };
 
   createMessage = async (req, res, next) => {

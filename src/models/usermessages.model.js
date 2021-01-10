@@ -82,12 +82,20 @@ class UserMessageModel {
   findOnesMessagesWithOne = async (params) => {
     const { columnSet, values } = multipleColumnSetAnd(params);
 
-    const sql = `SELECT * FROM ${this.tableName}
-        WHERE ${columnSet} 
-        ORDER BY date`;
+    // const sql = `SELECT * FROM ${this.tableName}
+    //     WHERE ${columnSet} 
+    //     ORDER BY date`;
     // sql += ` GROUP BY to_userid`;
 
-    const result = await query(sql, [...values]);
+    const sql = `SELECT * FROM ${this.tableName}
+        WHERE (from_userid = ${values[0]} and to_userid = ${values[1]}) or
+         (from_userid = ${values[1]} and to_userid = ${values[0]})
+        ORDER BY date`;
+
+    // const result = await query(sql, [...values]);
+    const result = await query(sql);
+
+
 
     // return back the first row (user)
     return result;
