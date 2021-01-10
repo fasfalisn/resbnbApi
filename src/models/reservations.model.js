@@ -47,7 +47,8 @@ class ReservationModel {
         const { columnSet, values } = multipleColumnSet(params)
         let sql = `SELECT reservation.*, house.Name FROM ${this.tableName} 
         JOIN house ON house.houseid = reservation.houseid 
-        WHERE ${columnSet}`;
+        WHERE ${columnSet}
+        ORDER BY date`;
 
         return await query(sql, [...values]);
     }
