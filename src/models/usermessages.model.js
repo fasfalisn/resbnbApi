@@ -53,7 +53,7 @@ class UserMessageModel {
                         FROM ${this.tableName}
                         WHERE From_UserID = ${values[0]} or To_UserID = ${values[0]}
                         GROUP BY greatest(From_UserID,To_UserID), least(From_UserID,To_UserID)) 
-                        ORDER BY date`;
+                        ORDER BY date DESC`;
 
     // const sql = `SELECT t1.* FROM ${this.tableName} AS t1
     //     JOIN (SELECT
@@ -83,8 +83,8 @@ class UserMessageModel {
     const { columnSet, values } = multipleColumnSetAnd(params);
 
     const sql = `SELECT * FROM ${this.tableName}
-
-        WHERE ${columnSet}`;
+        WHERE ${columnSet} 
+        ORDER BY date`;
     // sql += ` GROUP BY to_userid`;
 
     const result = await query(sql, [...values]);
