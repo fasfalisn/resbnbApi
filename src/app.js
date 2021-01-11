@@ -18,7 +18,7 @@ app.options("*", cors());
 
 const usersRoutes = require('./routes/users.route');
 // const guestsRoutes = require('./routes/guests.route');
-// const hostsRoutes = require('./routes/hosts.route');
+const hostsRoutes = require('./routes/hosts.route');
 const housesRoutes = require('./routes/houses.route');
 const itemsRoutes = require('./routes/items.route');
 const offersRoutes = require('./routes/offers.route');
@@ -35,7 +35,7 @@ const userrateshouseRoutes = require('./routes/userrateshouse.route');
 
 app.use('/api/users', usersRoutes);
 // app.use('/api/guests', guestsRoutes);
-// app.use('/api/hosts', hostsRoutes);
+app.use('/api/hosts', hostsRoutes);
 app.use('/api/houses', housesRoutes);
 app.use('/api/items', itemsRoutes);
 app.use('/api/offers', offersRoutes);
