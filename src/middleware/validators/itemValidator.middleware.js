@@ -21,7 +21,7 @@ exports.createItemSchema = [
     check('price')
         .exists()
         .withMessage('Please provide a price for the item.')
-        .isDecimal(6,2) // check if this command indeed sets upper bound 
+        // .isDecimal(6,2) // check if this command indeed sets upper bound 
 ];
 
 

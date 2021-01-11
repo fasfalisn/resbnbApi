@@ -31,7 +31,7 @@ class ItemModel {
 
     create = async ({ type, description, name, price, houseid }) => {
         const sql = `INSERT INTO ${this.tableName}
-        ( type, description, name, price, houseid) WHERE VALUES (?,?,?,?,?)`;
+        ( type, description, name, price, houseid) VALUES (?,?,?,?,?)`;
 
         const result = await query(sql, [ type, description, name, price, houseid ]);
         const affectedRows = result ? result.affectedRows : 0;
