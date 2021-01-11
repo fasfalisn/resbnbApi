@@ -30,7 +30,7 @@ class RatingsModel {
     }
 
     // need to check if date should be passed as a parameter in the function below.
-    createRating = async (userid,houseid,{ description, rating, date}) => {
+    create = async ({ userid,houseid,description, rating, date}) => {
         const sql = `INSERT INTO ${this.tableName}
         ( userid, houseid, description, rating, date) VALUES (?,?,?,?,?)`;
 

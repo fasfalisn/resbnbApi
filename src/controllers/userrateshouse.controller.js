@@ -35,7 +35,7 @@ class UserRatesHouseController {
   };
 
   createRating = async (req, res, next) => {
-    const result = await RatingsModel.create({userid: req.params.id, houseid: req.params.houseid},req.body);
+    const result = await UserRatesHouseModel.create(req.body);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");

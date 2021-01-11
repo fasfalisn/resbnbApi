@@ -12,6 +12,6 @@ router.get('/house/:id', awaitHandlerFactory(userRatesHouseController.getRatingB
 
 router.get('/user/:id', awaitHandlerFactory(userRatesHouseController.getRatingByUserId));
 
-router.post('/user/:id/house/:houseid', createUserRatesHouseSchema, awaitHandlerFactory(userRatesHouseController.createRating));
+router.post('/', createUserRatesHouseSchema, awaitHandlerFactory(userRatesHouseController.createRating));
 
 module.exports = router;
