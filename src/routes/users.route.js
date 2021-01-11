@@ -11,9 +11,9 @@ router.get('/', awaitHandlerFactory(usersController.getAllUsers));
 // GET 
 router.get('/:id', auth(), awaitHandlerFactory(usersController.getUserById));
 
-router.put('/:id', createUserSchema, awaitHandlerFactory(usersController.updateUser));
+router.put('/:id', updateUserSchema, awaitHandlerFactory(usersController.updateUser));
 
-router.post('/', updateUserSchema, awaitHandlerFactory(usersController.createUser));
+router.post('/', createUserSchema, awaitHandlerFactory(usersController.createUser));
 
 router.post('/login', validateLogin, awaitHandlerFactory(usersController.userLogin));
 
