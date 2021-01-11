@@ -33,7 +33,7 @@ class ItemModel {
         const sql = `INSERT INTO ${this.tableName}
         ( type, description, name, price, houseid) WHERE VALUES (?,?,?,?,?)`;
 
-        const result = await query(sql, [itemid, type, description, name, price, houseid ]);
+        const result = await query(sql, [ type, description, name, price, houseid ]);
         const affectedRows = result ? result.affectedRows : 0;
 
         return affectedRows;
